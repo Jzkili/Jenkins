@@ -1,0 +1,29 @@
+name: Java CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Runs the pipeline when code is pushed to the main branch
+  pull_request:
+    branches:
+      - main  # Runs on pull requests to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Uses an Ubuntu environment
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3  # Clones the repository
+
+      - name: Set Up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'  # Installs OpenJDK (Temurin)
+          java-version: '17'  # Adjust Java version as needed
+
+      - name: Compile Java Code
+        run: javac src/Main.java  # Compiles Java files
+
+      - name: Run Java Application
+        run: java -cp src Main  # Executes the program
